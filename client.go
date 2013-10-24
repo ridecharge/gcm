@@ -29,11 +29,10 @@ func NewClient(apiKey string) (c *Client) {
 
 // Sends a notification to the GCM gateway.
 func (this *Client) Send(n *Notification) string {
-	client := new(http.Client)
 	req, _ := http.NewRequest("POST", this.Gateway, strings.NewReader(n.ToJSON()))
 	req.Header.Add("Content-Type", "application/json")
 	req.Header.Add("Authorization", "key="+this.ApiKey)
-	resp, err := client.Do(req)
+	resp, err := new(http.Client).Do(req)
 	defer resp.Body.Close()
 	if err != nil {
 		return err.Error()
