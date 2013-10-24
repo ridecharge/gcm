@@ -1,5 +1,9 @@
 package gcm
 
+import (
+	"encoding/json"
+)
+
 // The Notification type wraps the payload and the
 // registration IDs that should be recipients of the
 // message data. Access is hidden away through methods.
@@ -13,6 +17,15 @@ func NewNotification() (n *Notification) {
 	n = new(Notification)
 	n.payload = make(map[string]interface{})
 	return
+}
+
+// Returns the current payload as a JSON string.
+func (this *Notification) ToJSON() (string, error) {
+	bytes, err := json.Marshal(this.payload)
+	if err != nil {
+		return "", err
+	}
+	return string(bytes), nil
 }
 
 // Returns the current payload map.

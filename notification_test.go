@@ -26,3 +26,12 @@ func TestSettingAndGettingPayloads(t *testing.T) {
 		t.Error("expected payload to have 1 value; got", len(n.Payload()))
 	}
 }
+
+func TestJSONPayload(t *testing.T) {
+	n := NewNotification()
+	n.Set("foo", "bar")
+	_, err := n.ToJSON()
+	if err != nil {
+		t.Error("expected to be able to get JSON representation of notification")
+	}
+}
